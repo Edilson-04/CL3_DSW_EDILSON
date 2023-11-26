@@ -20,7 +20,7 @@ public class Cl3DswiiGalindoApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("api/cl3/**")
 						.allowedMethods("GET", "POST", "PUT")
-						.allowedOrigins("*");
+						.allowedOrigins("https://www.cibertec.edu.pe ");
 			}
 		};
 	}

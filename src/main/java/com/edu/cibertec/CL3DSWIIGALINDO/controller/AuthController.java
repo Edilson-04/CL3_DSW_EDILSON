@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "")
+@RequestMapping(path = "api/cl3/login")
 public class AuthController {
 
     private DetalleUsuarioService detalleUsuarioService;

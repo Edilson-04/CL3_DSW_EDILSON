@@ -1,6 +1,5 @@
 package com.edu.cibertec.CL3DSWIIGALINDO.controller;
 
-
 import com.edu.cibertec.CL3DSWIIGALINDO.model.response.ResponseFile;
 import com.edu.cibertec.CL3DSWIIGALINDO.service.FileService;
 import lombok.AllArgsConstructor;
@@ -15,28 +14,31 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-
 @PreAuthorize("hasRole('SUPERVISOR')")
 @AllArgsConstructor
 @RestController
-@RequestMapping("api/cl3/filepdf")
-public class FileController {
-
+@RequestMapping("api/cl3/files")
+public class FilePDF {
 
     private FileService fileService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<ResponseFile> subirArchivos(
-            @RequestParam("files") List<MultipartFile> files) throws  Exception{
+    @PostMapping("/uploadPDF")
+    public ResponseEntity<ResponseFile> subirArchivosPdf(
+            @RequestParam("files") List<MultipartFile> files) throws Exception {
+
+        // Validar que la extensión del archivo sea PDF
+        if (!files.stream().allMatch(file -> file.getOriginalFilename().endsWith(".pdf"))) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         fileService.guardarArchivos(files);
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(
-                        ResponseFile.builder().message("Los archivos fueron cargados correctamente")
+                        ResponseFile.builder().message("Los archivos PDF fueron cargados correctamente")
                                 .build()
                 );
     }
-
-
 
 
 
